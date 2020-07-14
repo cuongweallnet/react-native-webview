@@ -231,17 +231,8 @@ static NSDictionary* customCertificatesForHost;
                                                             name:HistoryShimName];
   [self resetupScripts:wkWebViewConfig];
 
-#if !TARGET_OS_OSX
-  wkWebViewConfig.allowsInlineMediaPlayback = _allowsInlineMediaPlayback;
-#if WEBKIT_IOS_10_APIS_AVAILABLE
-  wkWebViewConfig.mediaTypesRequiringUserActionForPlayback = _mediaPlaybackRequiresUserAction
-    ? WKAudiovisualMediaTypeAll
-    : WKAudiovisualMediaTypeNone;
-  wkWebViewConfig.dataDetectorTypes = _dataDetectorTypes;
-#else
-  wkWebViewConfig.mediaPlaybackRequiresUserAction = _mediaPlaybackRequiresUserAction;
-#endif
-#endif // !TARGET_OS_OSX
+  wkWebViewConfig.allowsInlineMediaPlayback = true;
+  wkWebViewConfig.mediaTypesRequiringUserActionForPlayback = WKAudiovisualMediaTypeAll;
 
   if (_applicationNameForUserAgent) {
       wkWebViewConfig.applicationNameForUserAgent = [NSString stringWithFormat:@"%@ %@", wkWebViewConfig.applicationNameForUserAgent, _applicationNameForUserAgent];
